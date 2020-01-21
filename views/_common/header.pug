@@ -1,0 +1,5 @@
+- var nav = [{title: 'Home',link: '/'},{title: 'Books',link: '/books'},{title: 'Authors',link: '/authors'}];
+
+nav.nav
+    each val in nav
+        a.nav-link(href=val.link) #{val.title}

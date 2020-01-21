@@ -5,7 +5,10 @@ import { Request, Response } from 'express';
  * Home page.
  */
 const index = (req: Request, res: Response) => {
-    res.render('home', { title: 'Home Page', message: 'hello home page' });
+    res.render('home', {
+        title: 'Home Page',
+        message: 'hello home page',
+    });
 }
 
 export default index;

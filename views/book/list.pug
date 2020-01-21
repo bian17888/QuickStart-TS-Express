@@ -1,0 +1,15 @@
+extends ../layout.pug
+
+block content
+    .container
+        section.row
+            ul
+                each val in data
+                    li 
+                        h4 #{val.title}
+                        p
+                            em #{val.author} 
+                            if val.read
+                                small readed
+                            else
+                                small unreaded
