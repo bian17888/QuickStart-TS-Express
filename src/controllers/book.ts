@@ -15,17 +15,19 @@ async function index(req: Request, res: Response) {
     }
 }
 
-const detail = (req: Request, res: Response) => {
-    const book = {
-        title: 'War and Peace',
-        genre: 'Historical Fiction',
-        author: 'Lev Nikolayevich Tolstoy',
-        read: true
-    }
+async function detail(req: Request, res: Response) {
     const { id } = req.params;
-    res.render('book/detail', {
-        data: book
-    })
+    const request = new sql.Request();
+
+    try {
+        const result = await request.query('SELECT TOP (1) * FROM books WHERE id=' + id);
+        debug('app:bookController')(result);
+        res.render('book/detail', {
+            data: result.recordset[0]
+        })
+    } catch (err) {
+        debug(err);
+    }
 }
 
 export default {

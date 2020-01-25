@@ -8,8 +8,9 @@ block content
                     li 
                         h4 #{val.title}
                         p
-                            em #{val.author} 
+                            em #{val.author} - 
                             if val.read
-                                small readed
+                                small readed 
                             else
-                                small unreaded
+                                small unreaded 
+                            a(href='/books/' + val.id) more

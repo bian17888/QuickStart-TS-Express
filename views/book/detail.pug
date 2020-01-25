@@ -2,10 +2,13 @@ extends ../layout.pug
 
 block content
     .container
-        h4 #{data.title}
-        p
-            em #{data.author} 
-            if data.read
-                small readed
-            else
-                small unreaded
+        if data
+            h4 #{data.title}
+            p
+                em #{data.author} 
+                if data.read
+                    small readed
+                else
+                    small unreaded
+        else 
+            p 无数据...
