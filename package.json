@@ -16,6 +16,7 @@
     "express-validator": "^6.2.0",
     "lodash": "^4.17.15",
     "morgan": "^1.9.1",
+    "mssql": "^6.0.1",
     "pug": "^2.0.4",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
@@ -40,6 +41,7 @@
     "@types/lusca": "^1.6.1",
     "@types/mongoose": "^5.5.18",
     "@types/morgan": "^1.7.37",
+    "@types/mssql": "^6.0.0",
     "@types/node": "^12.7.8",
     "@types/node-sass": "^4.11.0",
     "@types/nodemailer": "^6.2.1",

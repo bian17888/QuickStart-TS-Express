@@ -1,59 +1,16 @@
 import { Request, Response } from 'express'
+import sql from 'mssql';
 
-const index = (req: Request, res: Response) => {
-    const books = [
-        {
-            title: 'War and Peace',
-            genre: 'Historical Fiction',
-            author: 'Lev Nikolayevich Tolstoy',
-            read: true
-        },
-        {
-            title: 'Les Misérables',
-            genre: 'Historical Fiction',
-            author: 'Victor Hugo',
-            read: true
-        },
-        {
-            title: 'The Time Machine',
-            genre: 'Science Fiction',
-            author: 'H. G. Wells',
-            read: false
-        },
-        {
-            title: 'A Journey into the Center of the Earth',
-            genre: 'Science Fiction',
-            author: 'Jules Verne',
-            read: false
-        },
-        {
-            title: 'The Dark World',
-            genre: 'Fantasy',
-            author: 'Henry Kuttner',
-            read: false
-        },
-        {
-            title: 'The Wind in the Willows',
-            genre: 'Fantasy',
-            author: 'Kenneth Grahame',
-            read: false
-        },
-        {
-            title: 'Life On The Mississippi',
-            genre: 'History',
-            author: 'Mark Twain',
-            read: false
-        },
-        {
-            title: 'Childhood',
-            genre: 'Biography',
-            author: 'Lev Nikolayevich Tolstoy',
-            read: false
-        }
-    ];
-    res.render('book/list', {
-        data: books
-    })
+async function index(req: Request, res: Response) {
+    const request = new sql.Request();
+    try {
+        const result = await request.query('select * from books');
+        res.render('book/list', {
+            data: result.recordset
+        })
+    } catch (err) {
+
+    }
 }
 
 const detail = (req: Request, res: Response) => {
