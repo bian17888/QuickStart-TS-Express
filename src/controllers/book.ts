@@ -5,10 +5,10 @@ import debug from 'debug'
 async function index(req: Request, res: Response) {
     const request = new sql.Request();
     try {
-        const result = await request.query('select * from books');
-        debug('app:bookController')(result);
+        const { recordset } = await request.query('select * from books');
+        debug('app:bookController')(recordset);
         res.render('book/list', {
-            data: result.recordset
+            data: recordset
         })
     } catch (err) {
 
@@ -20,10 +20,10 @@ async function detail(req: Request, res: Response) {
     const request = new sql.Request();
 
     try {
-        const result = await request.query('SELECT TOP (1) * FROM books WHERE id=' + id);
-        debug('app:bookController')(result);
+        const { recordset } = await request.input('id', sql.Int, id).query('SELECT TOP (1) * FROM books WHERE id = @id');
+        debug('app:bookController')(recordset);
         res.render('book/detail', {
-            data: result.recordset[0]
+            data: recordset[0]
         })
     } catch (err) {
         debug(err);
