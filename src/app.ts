@@ -8,6 +8,7 @@ import sql from 'mssql';
 
 import homeController from './controllers/home';
 import bookRouter from './routes/book';
+import adminRouter from './routes/admin';
 
 const config = {
     user: 'beck',
@@ -57,6 +58,7 @@ app.use(morgan('tiny'));
  * 5 Set Routes.
  */
 app.use('/books', bookRouter());
+app.use('/admin', adminRouter());
 app.get("/", homeController);
 
 export default app;
