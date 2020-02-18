@@ -1,4 +1,14 @@
 extends layout
 
 block content
-    h1= message
+    h1 Home Page
+    section
+        form(action="/auth/signup" method="post")
+            p
+                label(for="username") username : 
+                input(type="text" id="username" name="username")
+            p
+                label(for="password") password : 
+                input(type="text" id="password" name="password")
+            p
+                button(type="submit") Confirm

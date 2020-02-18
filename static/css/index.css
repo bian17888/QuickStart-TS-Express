@@ -1,3 +1,8 @@
 body {
   background-color: #eee;
 }
+
+.article {
+  width: 1000px;
+  margin: 0 auto;
+}

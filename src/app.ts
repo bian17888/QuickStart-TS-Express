@@ -4,26 +4,13 @@
 import path from 'path';
 import express from 'express';
 import morgan from 'morgan';
-import sql from 'mssql';
+import bodyParser from 'body-parser';
 
 import homeController from './controllers/home';
 import bookRouter from './routes/book';
 import adminRouter from './routes/admin';
+import authRouter from './routes/auth';
 
-const config = {
-    user: 'beck',
-    password: 'bK100200',
-    server: 'test-nodejs-server.database.chinacloudapi.cn',
-    database: 'test-nodejs-db',
-    pool: {
-        max: 10,
-        min: 0,
-        idleTimeoutMillis: 30000
-    },
-    options: {
-        encrypt: true
-    }
-}
 const app = express();
 
 
@@ -38,13 +25,6 @@ app.set('view engine', 'pug');
 /**
  * 3 Connect Database
  */
-(async function () {
-    try {
-        const pool = sql.connect(config);
-    } catch (err) {
-        console.log(err);
-    }
-})();
 
 
 /**
@@ -52,6 +32,8 @@ app.set('view engine', 'pug');
  */
 app.use('/static', express.static(path.join(__dirname, '../static')));
 app.use(morgan('tiny'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 /**
@@ -59,6 +41,7 @@ app.use(morgan('tiny'));
  */
 app.use('/books', bookRouter());
 app.use('/admin', adminRouter());
+app.use('/auth', authRouter());
 app.get("/", homeController);
 
 export default app;
