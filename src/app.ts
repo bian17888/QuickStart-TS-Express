@@ -5,11 +5,14 @@ import path from 'path';
 import express from 'express';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
 
 import homeController from './controllers/home';
 import bookRouter from './routes/book';
 import adminRouter from './routes/admin';
 import authRouter from './routes/auth';
+import passport from './config/passport';
 
 const app = express();
 
@@ -34,6 +37,9 @@ app.use('/static', express.static(path.join(__dirname, '../static')));
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(session({ secret: 'library' }))
+passport(app);
 
 
 /**
