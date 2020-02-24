@@ -26,7 +26,7 @@ export default function () {
                     const user = await col.findOne({ username });
                     debugLocalStrategy('===== user =====');
                     debugLocalStrategy(user);
-                    if (user.password === password) {
+                    if (user && user.password === password) {
                         done(null, user);
                     } else {
                         done(null, false);
