@@ -6,6 +6,10 @@ import authControllers from '../controllers/auth';
 const router = express.Router();
 
 const index = () => {
+    router.route('/logout').all((req, res) => {
+        req.logOut();
+        res.redirect('/');
+    })
     router.route('/signin')
         .get(authControllers.signin)
         .post(passport.authenticate('local', {
