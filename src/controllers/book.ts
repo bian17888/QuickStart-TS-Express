@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { MongoClient, ObjectID } from 'mongodb';
-import sql from 'mssql';
 import debug from 'debug';
 
 const debugBook = debug('app:bookController');

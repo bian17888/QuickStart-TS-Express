@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { MongoClient, ObjectID } from 'mongodb';
+import { MongoClient } from 'mongodb';
 import debug from 'debug';
 
 const debugAdmin = debug('app:authController');
@@ -7,7 +7,11 @@ const debugAdmin = debug('app:authController');
 // The config of mongodb
 const url = 'mongodb://localhost:27017';
 const dbName = 'express-demo';
-const colName = 'books';
+const colName = 'users';
+
+async function signin(req: Request, res: Response) {
+    res.render('signin', {});
+}
 
 async function signup(req: Request, res: Response) {
     debugAdmin(req.body);
@@ -17,7 +21,7 @@ async function signup(req: Request, res: Response) {
         client = await MongoClient.connect(url);
         debugAdmin('Connected correctly to server');
         const db = client.db(dbName);
-        const col = db.collection('users');
+        const col = db.collection(colName);
         const result = await col.insertOne(req.body);
         debugAdmin(result);
 
@@ -35,6 +39,7 @@ async function profile(req: Request, res: Response) {
 }
 
 export default {
+    signin,
     signup,
     profile
 }
