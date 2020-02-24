@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { MongoClient } from 'mongodb';
 import debug from 'debug';
 
@@ -9,11 +9,19 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'express-demo';
 const colName = 'users';
 
-async function signin(req: Request, res: Response) {
+export function middleware(req: Request, res: Response, next: NextFunction) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
+
+export async function signin(req: Request, res: Response) {
     res.render('signin', {});
 }
 
-async function signup(req: Request, res: Response) {
+export async function signup(req: Request, res: Response) {
     debugAdmin(req.body);
     let client;
     try {
@@ -34,12 +42,6 @@ async function signup(req: Request, res: Response) {
     }
 }
 
-async function profile(req: Request, res: Response) {
+export async function profile(req: Request, res: Response) {
     res.json(req.user);
-}
-
-export default {
-    signin,
-    signup,
-    profile
 }

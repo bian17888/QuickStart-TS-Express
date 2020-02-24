@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 import { MongoClient, ObjectID } from 'mongodb';
 import debug from 'debug';
 
@@ -9,7 +9,15 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'express-demo';
 const colName = 'books';
 
-async function index(req: Request, res: Response) {
+export function middleware(req: Request, res: Response, next: NextFunction) {
+    if (req.user) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+}
+
+export async function getIndex(req: Request, res: Response) {
     let client;
     try {
         // Connect using MongoClient
@@ -27,7 +35,7 @@ async function index(req: Request, res: Response) {
     client.close();
 }
 
-async function detail(req: Request, res: Response) {
+export async function getById(req: Request, res: Response) {
     const { id } = req.params;
     const _id = new ObjectID(id);
     let client;
@@ -46,8 +54,3 @@ async function detail(req: Request, res: Response) {
         debug(err);
     }
 }
-
-export default {
-    index,
-    detail
-};

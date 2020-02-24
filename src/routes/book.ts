@@ -1,19 +1,12 @@
 import express from 'express';
-
-import bookController from '../controllers/book'
+import { middleware, getIndex, getById } from '../controllers/book'
 
 const router = express.Router();
 
 const index = () => {
-    router.use((req, res, next) => {
-        if (req.user) {
-            next();
-        } else {
-            res.redirect('/');
-        }
-    });
-    router.route('/').get(bookController.index);
-    router.route('/:id').get(bookController.detail);
+    router.use(middleware);
+    router.route('/').get(getIndex);
+    router.route('/:id').get(getById);
     return router;
 }
 

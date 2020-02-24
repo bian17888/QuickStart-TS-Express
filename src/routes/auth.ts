@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 
-import authControllers from '../controllers/auth';
+import { middleware, signin, signup, profile } from '../controllers/auth';
 
 const router = express.Router();
 
@@ -11,21 +11,15 @@ const index = () => {
         res.redirect('/');
     })
     router.route('/signin')
-        .get(authControllers.signin)
+        .get(signin)
         .post(passport.authenticate('local', {
             successRedirect: '/auth/profile',
             failureRedirect: '/'
         }));
-    router.route('/signup').post(authControllers.signup);
+    router.route('/signup').post(signup);
     router.route('/profile')
-        .all((req, res, next) => {
-            if (req.user) {
-                next();
-            } else {
-                res.redirect('/');
-            }
-        })
-        .get(authControllers.profile);
+        .all(middleware)
+        .get(profile);
     return router;
 }
 
