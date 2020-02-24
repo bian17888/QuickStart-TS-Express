@@ -18,11 +18,11 @@ async function signup(req: Request, res: Response) {
         debugAdmin('Connected correctly to server');
         const db = client.db(dbName);
         const col = db.collection('users');
-        const result = col.insertOne(req.body);
+        const result = await col.insertOne(req.body);
         debugAdmin(result);
 
         // redirect 
-        req.login(req.body, () => {
+        req.login(result.ops[0], () => {
             res.redirect('/auth/profile')
         })
     } catch (err) {
