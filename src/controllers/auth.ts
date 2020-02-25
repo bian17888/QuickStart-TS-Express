@@ -17,8 +17,8 @@ export function middleware(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-export async function signin(req: Request, res: Response) {
-    res.render('signin', {});
+export async function signupPage(req: Request, res: Response) {
+    res.render('signup', {});
 }
 
 export async function signup(req: Request, res: Response) {

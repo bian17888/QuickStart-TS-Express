@@ -3,9 +3,9 @@ extends layout
 block content
     h1 Home Page
     section
-        form(action="/auth/signup" method="post")
+        form(action="/auth/signin" method="post")
             fieldset
-                legend sign up form
+                legend sign in form
                 p
                     label(for="username") username : 
                     input(type="text" id="username" name="username")
@@ -15,4 +15,4 @@ block content
                 p
                     button(type="submit") Confirm
                 p
-                    a(href="/auth/signin") sign in
+                    a(href="/auth/signup") sign up
