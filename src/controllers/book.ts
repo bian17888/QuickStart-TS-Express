@@ -50,9 +50,10 @@ export async function getById(req: Request, res: Response) {
         const result = await col.findOne({ _id });
         debugBook(result);
 
-        result.details = await getBygoodreadsId(result.bookId);
-        debugBook('details');
-        debugBook(result.details);
+        // 国内无法访问
+        // result.details = await getBygoodreadsId(result.bookId);
+        // debugBook('details');
+        // debugBook(result.details);
 
         res.render('book/detail', {
             data: result
