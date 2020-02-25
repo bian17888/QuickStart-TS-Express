@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from 'express'
 import { MongoClient, ObjectID } from 'mongodb';
 import debug from 'debug';
+import { getById as getBygoodreadsId } from '../services/goodreads';
 
 const debugBook = debug('app:bookController');
+
 
 // The config of mongodb
 const url = 'mongodb://localhost:27017';
@@ -47,6 +49,11 @@ export async function getById(req: Request, res: Response) {
 
         const result = await col.findOne({ _id });
         debugBook(result);
+
+        result.details = await getBygoodreadsId(result.bookId);
+        debugBook('details');
+        debugBook(result.details);
+
         res.render('book/detail', {
             data: result
         })
